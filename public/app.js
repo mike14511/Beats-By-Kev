@@ -10,6 +10,10 @@
 
     }
 
+    this.showLoading = function(){
+      return that.lines.length === 0;
+    }
+
     var that = this;
 
     var interval = $interval(function(){
@@ -18,7 +22,7 @@
       if(ctr === 10){
         $interval.cancel(interval);
       }
-    }, 100);
+    }, 1000);
 
     var index = 0;
     var ctr = 0;

@@ -13,6 +13,11 @@
 
       <input type="text" placeholder="Type Something."></input>
 
+      <div class="loading" ng-show="lineCtrl.showLoading()">
+        <img src="img/loading.gif"></img>
+        <p>Dialing in some sick beats</p>
+      </div>
+
       <div class="line animated bounceInRight" ng-repeat="line in lineCtrl.lines">
         <p class="number">{{$index +1}}.</p>
         <p class="text">{{line}}</p>
