@@ -23,6 +23,7 @@
   "homepage": "https://github.com/mike14511/Beats-By-Kev#readme",
   "dependencies": {
     "bower": "^1.7.7",
+    "chalk": "^1.1.1",
     "cmudict": "^1.0.2",
     "express": "^4.13.4",
     "morgan": "^1.6.1"
