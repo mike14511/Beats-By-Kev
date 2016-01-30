@@ -1,25 +1,31 @@
-<html>
+<html ng-app="beatsByKev">
   <head>
     <title>Beats, By Kev</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="components/animate.css/animate.min.css">
   </head>
   <body>
 
 
-    <div class="container">
+    <div class="container" ng-controller="LinesController as lineCtrl">
 
       <h1>Beats by Kev</h1>
 
       <input type="text" placeholder="Type Something."></input>
 
-      <div class="line">
+      <div class="line animated bounceInRight" ng-repeat="line in lineCtrl.lines">
+        <p class="number">{{$index +1}}.</p>
+        <p class="text">{{line}}</p>
+      </div>
+
+      <!-- <div class="line animated bounceInRight">
         <p class="number">1.</p>
         <p class="text">I've been through the desert on a horse with no name.</p>
       </div>
-      <div class="line">
+      <div class="line animated bounceInRight">
         <p class="number">2.</p>
         <p class="text">It felt good to be out of the rain.</p>
-      </div>
+      </div> -->
 
     </div>
 

@@ -53,6 +53,15 @@ input[type="text"]:hover, input[type="text"]:focus{
   min-height: 60px;
   transition: background-color .2s linear, color .2s linear;
 }
+
+/*.line.ng-enter {
+  -webkit-animation: bounceIn 1s;
+  -moz-animation: bounceIn 1s;
+  -ms-animation: bounceIn 1s;
+  animation: bounceIn 1s;
+}*/
+
+
 .line:hover{
   background-color: white;
 }
