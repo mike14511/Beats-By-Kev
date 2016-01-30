@@ -11,14 +11,19 @@
 
       <h1>Beats by Kev</h1>
 
-      <input type="text" placeholder="Type Something."></input>
+      <input type="text"
+        ng-model="lineCtrl.word"
+        ng-model-options="{debounce: 1000}"
+        ng-change="lineCtrl.change()"
+        placeholder="Type Something."></input>
 
       <div class="loading" ng-show="lineCtrl.showLoading()">
         <img src="img/loading.gif"></img>
         <p>Dialing in some sick beats</p>
       </div>
 
-      <div class="line animated bounceInRight" ng-repeat="line in lineCtrl.lines">
+      <div class="line animated bounceInRight"
+        ng-repeat="line in lineCtrl.lines track by $index">
         <p class="number">{{$index +1}}.</p>
         <p class="text">{{line}}</p>
       </div>
