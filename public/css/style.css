@@ -1,0 +1,42 @@
+body{
+  font-family: 'helvetica';
+  background-color: #FE4000;
+  color: white;
+  background-image: url('../img/sick_dj.png');
+  background-repeat: no-repeat;
+  background-position-y: 100px;
+  background-size: 50%;
+}
+
+div.container{
+  width: 100%;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  padding-top: 100px;
+}
+
+h1{
+  font-family: monospace;
+  font-size: 5em;
+  margin: 0px;
+}
+
+input[type="text"]{
+  width: 500px;
+  display: inline-block;
+  height: 40px;
+  background-color: inherit;
+  border: 0px;
+  border-bottom: 3px white solid;
+  font-size: 1.5em;
+  padding: 5px 20px;
+  outline: none;
+  color: white;
+  transition: background-color .2s linear, color .2s linear;
+}
+input[type="text"]:hover, input[type="text"]:focus{
+  background-color:white;
+  color: #FE4000;
+}
