@@ -35,8 +35,78 @@ input[type="text"]{
   outline: none;
   color: white;
   transition: background-color .2s linear, color .2s linear;
+  margin-bottom: 30px;
 }
 input[type="text"]:hover, input[type="text"]:focus{
   background-color:white;
   color: #FE4000;
+}
+
+.line{
+  width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: rgba(0,0,0,.3);
+  margin-top: 5px;
+  position: relative;
+  text-align: left;
+  min-height: 60px;
+  transition: background-color .2s linear, color .2s linear;
+}
+
+/*.line.ng-enter {
+  -webkit-animation: bounceIn 1s;
+  -moz-animation: bounceIn 1s;
+  -ms-animation: bounceIn 1s;
+  animation: bounceIn 1s;
+}*/
+
+
+.line:hover{
+  background-color: white;
+}
+.line .number{
+  position: absolute;
+  left: 10px;
+  font-size: 3em;
+  display: inline-block;
+  color: rgb(155,155,155);
+  width: 100px;
+  margin: 0px;
+  font-family: monospace;
+}
+.line:hover .number{
+  color: rgb(155,155,155);
+}
+.line .text{
+  display: inline-block;
+  margin: 0px;
+  font-size: 2em;
+  width: 690px;
+  padding: 10px;
+  padding-left: 100px;
+}
+.line:hover .text{
+  color: #FE4000;
+}
+
+
+.loading{
+  background-color: rgba(0,0,0,.3);
+  padding: 10px;
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 300px;
+  padding-bottom: 30px;
+}
+
+.loading img{
+  width: 200px;
+}
+
+.loading p{
+  font-family: monospace;
+  font-size: 2em;
+  margin: 0px;
 }
