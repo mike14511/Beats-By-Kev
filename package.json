@@ -25,9 +25,12 @@
     "bower": "^1.7.7",
     "cmudict": "^1.0.2",
     "express": "^4.13.4",
-    "morgan": "^1.6.1"
+    "morgan": "^1.6.1",
+    "nano": "^6.2.0",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
-    "bower": "^1.7.7"
+    "bower": "^1.7.7",
+    "nodeunit": "^0.9.1"
   }
 }

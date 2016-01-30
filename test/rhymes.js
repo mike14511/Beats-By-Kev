@@ -1,4 +1,5 @@
 var util_words = require('../util/words');
+var _ = require("underscore");
 
 var test_words = [
     'string',
@@ -30,11 +31,22 @@ var test_function = function(word, callback) {
     callback(null, expected);
 };
 
+var real_function = function (word, callback) {
+  var preparedWord = util_words.prepare_word(word);
+  util_words.get_rhymes(preparedWord, function (err, body) {
+    var words = _.map(body.rows, function (doc) {
+      return doc.doc;
+    });
+    console.log("Words: " + JSON.stringify(words));
+    callback(err, {docs:words});
+  });
+}
+
 // 
 module.exports.test_rhyme_pink = function(test) {
 
     // results is an array of word docs
-    test_function('pink', function(err, results) {
+    real_function('pink', function(err, results) {
         
         var docs = results.docs;
         
