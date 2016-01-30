@@ -1,0 +1,19 @@
+{
+  "name": "beats-by-kev",
+  "description": "beats, by kev",
+  "main": "server.js",
+  "authors": [
+    "Matt Mallett <mmallet@us.ibm.com>"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "beats",
+    "kev"
+  ],
+  "homepage": "https://github.com/mike14511/Beats-By-Kev",
+  "moduleType": [],
+  "private": true,
+  "dependencies": {
+    "angular": "^1.4.9"
+  }
+}

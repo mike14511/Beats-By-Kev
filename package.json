@@ -1,0 +1,32 @@
+{
+  "name": "beats-by-kev",
+  "version": "0.0.1",
+  "description": "beats, by kev",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "bower install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mike14511/Beats-By-Kev.git"
+  },
+  "keywords": [
+    "beats",
+    "kev"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mike14511/Beats-By-Kev/issues"
+  },
+  "homepage": "https://github.com/mike14511/Beats-By-Kev#readme",
+  "dependencies": {
+    "bower": "^1.7.7",
+    "express": "^4.13.4",
+    "morgan": "^1.6.1"
+  },
+  "devDependencies": {
+    "bower": "^1.7.7"
+  }
+}
