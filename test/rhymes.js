@@ -34,11 +34,7 @@ var test_function = function(word, callback) {
 var real_function = function (word, callback) {
   var preparedWord = util_words.prepare_word(word);
   util_words.get_rhymes(preparedWord, function (err, body) {
-    var words = _.map(body.rows, function (doc) {
-      return doc.doc;
-    });
-    console.log("Words: " + JSON.stringify(words));
-    callback(err, {docs:words});
+    callback(err, body);
   });
 }
 

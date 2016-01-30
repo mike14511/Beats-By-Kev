@@ -72,7 +72,10 @@ module.exports.get_rhymes = function(word, next) {
   key = get_end(word.rev_pron);
   console.log("Key: " + key);
   words.view('words', "by_rev_pron", {"keys":[key.toString()], "include_docs":true}, function(err, body) {
-    next(err, body);
+    var words = _.map(body.rows, function (doc) {
+      return doc.doc;
+    });
+    next(err, {docs:words});
   });
 }
 
