@@ -1,5 +1,6 @@
 var CMUDict = require('cmudict').CMUDict;
 var cmudict = new CMUDict();
+var chalk = require('chalk');
 var _ = require('underscore');
 
 var settings = require('../settings');
@@ -41,15 +42,21 @@ var words = nano.use("words");
  * access word string at word.word
  */
 module.exports.prepare_word = function (word, next) {
-  console.log("Preparing word: " + word.word);
-  var word = word.word;
+    console.log("Preparing word: " + word.word);
+    var word = word.word;
+    var wordArray = word.split(' ');
+    word = wordArray[wordArray.length - 1];
+    if(!word.word) {
+        console.log(word);
+    }
     var phoneme_str = cmudict.get(word);
+    if(!phoneme_str) console.log('cmudict failed for %s', chalk.red(word));
     var phoneme_array = phoneme_str.split(' ');
     clean_phoneme_array = _.map(phoneme_array, function(phoneme) {
       if (phoneme.length > 2) {
         return phoneme.slice(0, 2);
       }
-      else {
+        else {
         return phoneme;
       }
     });

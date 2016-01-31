@@ -1,6 +1,8 @@
 var util_words = require('../util/words');
 var settings = require('../settings');
+var chalk = require('chalk');
 var nano = require('nano')({
+    
   url : "https://" + settings.cloudant['account'] + ".cloudant.com",
   requestDefaults : {
     auth : {
@@ -139,63 +141,67 @@ var getRhymingNounFromCloudant = function(verb, callback) {
  * takes a noun-verb pair
  */
 function addRelationship(pair) {
-    
+    console.log('adding relationship noun: %s; verb: %s', chalk.blue(pair.noun), chalk.green(pair.verb))
     //Look for a noun first
     //Noun and verb are two different documents
     
     words.get(pair.noun, {revs_info: false }, function(err, body) {
-      //we couldn't find this word
-    if (err) {
-      var wordToAdd = {};
-      //Get the pron info first
-      wordToAdd = util_words.prepare_word({"word":pair.noun});
-      //Then add in some extra info
-      wordToAdd.noun = pair.noun;
-      wordToAdd.actions = [pair.verb];
-      
-        util_words.insert_word(wordToAdd, function (err, body) {
-          if (err) {
-            console.log("Error adding relationship: " + err);
-          }
-        });
-    }
-    else {
-      //We found the word.
-      oldWord = body;
-      oldWord.actions.push(pair.verb)
-      notes.insert(oldWord, oldWord._id, function(err, doc) {
-        if (err) {
-          console.log("Error updating word with new verb: " + err);
-        }
-      });
-    }
-    
-    words.get(pair.verb, {revs_info: false }, function(err, body) {
-      //we couldn't find this word
-    if (err) {
-      var wordToAdd = {};
-      //Get the pron info first
-      wordToAdd = util_words.prepare_word({"word":pair.verb});
-      //Then add in some extra info
-      wordToAdd.verb = pair.verb;
-      wordToAdd.actors = [pair.noun];
-      
-        util_words.insert_word(wordToAdd, function (err, body) {
-          if (err) {
-            console.log("Error adding relationship (verb: " +pair.verb+ "): " + err);
-          }
-        });
-    }
-    else {
-      //We found the word.
-      oldWord = body;
-      oldWord.actors.push(pair.noun)
-      notes.insert(oldWord, oldWord._id, function(err, doc) {
-        if (err) {
-          console.log("Error updating word with new verb: " + err);
-        }
-      });
-    }
-}
+        //we couldn't find this word
 
+        if (err) {
+            var wordToAdd = {};
+            //Get the pron info first
+            wordToAdd = util_words.prepare_word({"word":pair.noun});
+            //Then add in some extra info
+            wordToAdd.noun = pair.noun;
+            wordToAdd.actions = [pair.verb];
+            
+            util_words.insert_word(wordToAdd, function (err, body) {
+                if (err) {
+                    console.log("Error adding relationship: " + err);
+                }
+            });
+        }
+        else {
+            //We found the word.
+            oldWord = body;
+            oldWord.actions.push(pair.verb)
+            notes.insert(oldWord, oldWord._id, function(err, doc) {
+                if (err) {
+                    console.log("Error updating word with new verb: " + err);
+                }
+            });
+        }
+    });
+        
+    words.get(pair.verb, {revs_info: false }, function(err, body) {
+            //we couldn't find this word
+            if (err) {
+                var wordToAdd = {};
+                //Get the pron info first
+                wordToAdd = util_words.prepare_word({"word":pair.verb});
+                //Then add in some extra info
+                wordToAdd.verb = pair.verb;
+                wordToAdd.actors = [pair.noun];
+                
+                util_words.insert_word(wordToAdd, function (err, body) {
+                    if (err) {
+                        console.log("Error adding relationship (verb: " +pair.verb+ "): " + err);
+                    }
+                });
+            }
+        else {
+            //We found the word.
+            oldWord = body;
+            oldWord.actors.push(pair.noun)
+            notes.insert(oldWord, oldWord._id, function(err, doc) {
+                if (err) {
+                    console.log("Error updating word with new verb: " + err);
+                }
+            });
+        }
+    });
+}
+                  
 module.exports.startFromZero = startFromZero;
+module.exports.addRelationship = addRelationship;
