@@ -1,3 +1,18 @@
+var util_words = require('../util/words');
+var settings = require('../settings');
+var nano = require('nano')({
+  url : "https://" + settings.cloudant['account'] + ".cloudant.com",
+  requestDefaults : {
+    auth : {
+      user : settings.cloudant['apiKey'],
+      pass : settings.cloudant['apiPass']
+    }
+  // enable for debug
+      //, "log" : function (id, args) { console.log(id, args); }
+    }
+});
+
+var words = nano.use("words");
 // http://stackoverflow.com/questions/610406/javascript-equivalent-to-printf-string-format
 String.prototype.format = function() {
     var formatted = this;
@@ -124,40 +139,63 @@ var getRhymingNounFromCloudant = function(verb, callback) {
  * takes a noun-verb pair
  */
 function addRelationship(pair) {
-    pair.noun;
-    pair.verb;
-
-    if (!cloudantHas( pair.noun))  {
-        addMe = {
-            noun: noun,
-            pron: xxxx,
-            actions: [
-                pair.verb
-            ]
-        }
-        cloudant.insert(addMe);
+    
+    //Look for a noun first
+    //Noun and verb are two different documents
+    
+    words.get(pair.noun, {revs_info: false }, function(err, body) {
+      //we couldn't find this word
+    if (err) {
+      var wordToAdd = {};
+      //Get the pron info first
+      wordToAdd = util_words.prepare_word({"word":pair.noun});
+      //Then add in some extra info
+      wordToAdd.noun = pair.noun;
+      wordToAdd.actions = [pair.verb];
+      
+        util_words.insert_word(wordToAdd, function (err, body) {
+          if (err) {
+            console.log("Error adding relationship: " + err);
+          }
+        });
     }
     else {
-
-        updateMe = cloudant.find(pair.noun)
-        
-        updateMe.actions.push(pair.verb)
-
-        cloudant.update(updateMe);
-    }
-
-    if(!cloudantHas(pair.verb)) {
-        addMe = {
-            verb: verb,
-            pron: xxxx
+      //We found the word.
+      oldWord = body;
+      oldWord.actions.push(pair.verb)
+      notes.insert(oldWord, oldWord._id, function(err, doc) {
+        if (err) {
+          console.log("Error updating word with new verb: " + err);
         }
+      });
     }
-        // { update with new relationship...
-    //   look for rhymes }
-
-    // if (!cloudant has pair.verb)
-    // add verb
     
+    words.get(pair.verb, {revs_info: false }, function(err, body) {
+      //we couldn't find this word
+    if (err) {
+      var wordToAdd = {};
+      //Get the pron info first
+      wordToAdd = util_words.prepare_word({"word":pair.verb});
+      //Then add in some extra info
+      wordToAdd.verb = pair.verb;
+      wordToAdd.actors = [pair.noun];
+      
+        util_words.insert_word(wordToAdd, function (err, body) {
+          if (err) {
+            console.log("Error adding relationship (verb: " +pair.verb+ "): " + err);
+          }
+        });
+    }
+    else {
+      //We found the word.
+      oldWord = body;
+      oldWord.actors.push(pair.noun)
+      notes.insert(oldWord, oldWord._id, function(err, doc) {
+        if (err) {
+          console.log("Error updating word with new verb: " + err);
+        }
+      });
+    }
 }
 
 module.exports.startFromZero = startFromZero;
