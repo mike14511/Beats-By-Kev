@@ -23,8 +23,8 @@ function genLineText(n0, v1, n1) {
 }
 
 
-console.log(genLineText('mockingbird', 'sing', 'ring'));
-console.log(genLineText('mockingbird', 'sing', 'ring'));
+//console.log(genLineText('mockingbird', 'sing', 'ring'));
+//console.log(genLineText('mockingbird', 'sing', 'ring'));
 
 var data = require('../sampledata/beforeAfter').after;
 
@@ -82,6 +82,7 @@ function generateNewLine(allLines, currentNoun, maxLines, callback) {
         }
         
         getRhymingNounFromCloudant(nextVerb, function(err, nextNoun) {
+            
             console.log('got next noun %s', chalk.green(nextNoun), 'from cloudant');
             var fullLine = genLineText(currentNoun, nextVerb, nextNoun);            
             console.log(chalk.yellow(fullLine));
@@ -94,6 +95,7 @@ function generateNewLine(allLines, currentNoun, maxLines, callback) {
         
     });
 }
+
 
 var getActionFromCloudant = function(noun, callback) {
 
@@ -125,10 +127,32 @@ function addRelationship(pair) {
     pair.noun;
     pair.verb;
 
-    // if (!cloudant has pair.noun)
-    // add noun
-    // else
-    // { update with new relationship...
+    if (!cloudantHas( pair.noun))  {
+        addMe = {
+            noun: noun,
+            pron: xxxx,
+            actions: [
+                pair.verb
+            ]
+        }
+        cloudant.insert(addMe);
+    }
+    else {
+
+        updateMe = cloudant.find(pair.noun)
+        
+        updateMe.actions.push(pair.verb)
+
+        cloudant.update(updateMe);
+    }
+
+    if(!cloudantHas(pair.verb)) {
+        addMe = {
+            verb: verb,
+            pron: xxxx
+        }
+    }
+        // { update with new relationship...
     //   look for rhymes }
 
     // if (!cloudant has pair.verb)
