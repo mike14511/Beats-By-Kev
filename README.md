@@ -18,3 +18,4 @@ and check that the test passes
 ## Adding words via script
 define [sentences with relationships](sampledata/sentences) 
 run [actions here](test/actions.js)
+
