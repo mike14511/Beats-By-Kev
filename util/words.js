@@ -37,10 +37,12 @@ var nano = require('nano')({
 var words = nano.use("words");
 
 /**
- * takes in a string, and returns a string object
+ * takes in a json word object, and returns a json object
+ * access word string at word.word
  */
 module.exports.prepare_word = function (word, next) {
-  console.log("Preparing word: " + word);
+  console.log("Preparing word: " + word.word);
+  var word = word.word;
     var phoneme_str = cmudict.get(word);
     var phoneme_array = phoneme_str.split(' ');
     clean_phoneme_array = _.map(phoneme_array, function(phoneme) {

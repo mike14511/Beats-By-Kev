@@ -14,7 +14,7 @@ var test_words = [
 var full_word_objects = [];
 
 test_words.forEach(function(word) {
-    var word_obj = util_words.prepare_word(word);
+    var word_obj = util_words.prepare_word({"word":word});
     full_word_objects.push(word_obj);
 });
 
@@ -32,7 +32,7 @@ var test_function = function(word, callback) {
 };
 
 var real_function = function (word, callback) {
-  var preparedWord = util_words.prepare_word(word);
+  var preparedWord = util_words.prepare_word({"word":word});
   util_words.get_rhymes(preparedWord, function (err, body) {
     callback(err, body);
   });
