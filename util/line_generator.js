@@ -116,10 +116,32 @@ function generateNewLine(allLines, currentNoun, maxLines, callback) {
 
 var getActionFromCloudant = function(noun, callback) {
 
-    var randomVerbs = ['yuzz', 'beft', 'kweet', 'zamp', 'zax', 'skritz'];
-    var randomVerb = randomVerbs[Math.floor( Math.random() * randomVerbs.length)];
-    // TODO get an action
-    callback(null, randomVerb);
+    words.get(noun, {}, function(err, body) {
+        if(err) {
+
+            console.log(err);
+
+            var randomVerbs = ['yuzz', 'beft', 'kweet', 'zamp', 'zax', 'skritz'];
+            var randomVerb = randomVerbs[Math.floor( Math.random() * randomVerbs.length)];
+            // TODO get an action
+            callback(null, randomVerb);
+            
+        }
+        else if(body.actions && body.actions[0]) {
+            console.log(JSON.stringify(body));
+
+            callback(body.actions[0]);
+            
+        } else {
+
+            var randomVerbs = ['yuzz', 'beft', 'kweet', 'zamp', 'zax', 'skritz'];
+            var randomVerb = randomVerbs[Math.floor( Math.random() * randomVerbs.length)];
+            // TODO get an action
+            callback(null, randomVerb);
+        }
+
+    });
+    
 };
 
 var getRhymingNounFromCloudant = function(verb, callback) {
